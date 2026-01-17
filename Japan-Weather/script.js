@@ -239,7 +239,7 @@ function updateWeatherUI(data) {
     document.getElementById("timezone").textContent = `UTC${tzSign}${timezoneOffset}`;
     
     document.getElementById("desc").textContent = 
-        data.weather[0].main + " " + getWeatherEmoji(data.weather[0].main);
+        getWeatherDescription(data.weather[0].main) + " " + getWeatherEmoji(data.weather[0].main);
     
     // Вероятность дождя (если есть в данных)
     const rainProb = data.rain ? Object.values(data.rain)[0] * 100 : (data.clouds.all > 70 ? "60" : "0");
@@ -271,6 +271,21 @@ function getWeatherEmoji(condition) {
         'Squall': '🌪️'
     };
     return emojis[condition] || '🌤️';
+}
+
+// Описание погоды на русском с переводом
+function getWeatherDescription(condition) {
+    const descriptions = {
+        'Clear': 'Ясно (晴れ)',
+        'Clouds': 'Облачно (曇り)',
+        'Rain': 'Дождь (雨)',
+        'Thunderstorm': 'Гроза (雷)',
+        'Snow': 'Снег (雪)',
+        'Mist': 'Туман (霧)',
+        'Drizzle': 'Морось (小雨)',
+        'Squall': 'Шквал (突風)'
+    };
+    return descriptions[condition] || 'Неизвестно (不明)';
 }
 
 // Получение прогноза на 5 дней
