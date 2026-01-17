@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Японская Погода | Japan Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">🌙</button>
+        
+        <h1>🌸 Погода в Японии | 日本の天気</h1>
+        
+        <!-- Раздел ввода имени -->
+        <div class="name-section">
+            <input type="text" id="nameInput" placeholder="Введи имя (русское)" onkeyup="showJapaneseName()">
+            <div id="japaneseName" class="japanese-name-display"></div>
+        </div>
+        
+        <!-- Раздел погоды -->
+        <div class="weather-section">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <select id="citySelect" onchange="getWeather()">
+                    <option value="Tokyo">🗾 Токио (東京)</option>
+                    <option value="Osaka">🌸 Осака (大阪)</option>
+                    <option value="Kyoto">⛩️ Киото (京都)</option>
+                    <option value="Yokohama">⚓ Йокогама (横浜)</option>
+                    <option value="Hiroshima">🌅 Хиросима (広島)</option>
+                </select>
+                <input type="text" id="searchCity" placeholder="Искать город..." onkeypress="if(event.key==='Enter') searchWeather()">
+            </div>
+            <button onclick="searchWeather()" class="button">🔍 Поиск</button>
+            <button onclick="getLocationWeather()" class="button">📍 Мое местоположение</button>
+            <button onclick="manualUpdate()" class="button">🔄 Обновить</button>
+            
+            <div id="city" class="city-name">Выбери город...</div>
+            <div id="temp" class="temp">--°C</div>
+            <div id="desc" class="desc">--</div>
+            
+            <div class="detail-box">
+                <div><strong>Ощущается как:</strong> <span id="feelsLike">--°C</span></div>
+                <div><strong>Влажность воздуха:</strong> <span id="humidity">--%</span></div>
+                <div><strong>Скорость ветра:</strong> <span id="wind">-- м/с</span></div>
+                <div><strong>Атмосферное давление:</strong> <span id="pressure">-- гПа</span></div>
+            </div>
+            
+            <div class="advanced-info">
+                <h3>📊 Дополнительная информация</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <p class="label">🌅 Восход солнца</p>
+                        <p class="value" id="sunrise">--:--</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="label">🌇 Закат солнца</p>
+                        <p class="value" id="sunset">--:--</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="label">👁️ Видимость (км)</p>
+                        <p class="value" id="visibility">-- км</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="label">☁️ Облачность (%)</p>
+                        <p class="value" id="clouds">--%</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="label">💧 Вероятность дождя (%)</p>
+                        <p class="value" id="rain">--%</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="label">⏰ Часовой пояс</p>
+                        <p class="value" id="timezone">UTC</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="forecast-section">
+                <h3>📅 Прогноз погоды на 5 дней</h3>
+                <div id="forecastGrid" class="forecast-grid"></div>
+            </div>
+            
+            <div class="hourly-section">
+                <h3>⏳ Прогноз на 24 часа (почасовой)</h3>
+                <div id="hourlyGrid" class="hourly-grid"></div>
+            </div>
+        </div>
+        
+        <!-- История и избранное -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+            <div class="section">
+                <h3>� Последние поиски</h3>
+                <div id="historyList" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+            </div>
+            <div class="section">
+                <h3>⭐ Избранные города</h3>
+                <button onclick="addToFavorites()" class="button">➕ Добавить в избранное</button>
+                <div id="favoritesList" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;"></div>
+            </div>
+        </div>
+        
+        <div class="update-info">
+            Обновлено: <span id="updateTime">--:--</span> | 
+            Координаты: <span id="currentCoords">--</span>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
